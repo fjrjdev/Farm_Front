@@ -12,7 +12,14 @@ export class FarmService {
   constructor(private http: HttpClient) {}
 
   create(farm: Farm): Observable<any> {
-    return this.http.post(`${this.baseURL}`, farm)
+    return this.http.post(`${this.baseURL}`, farm).pipe(
+      catchError((error: HttpErrorResponse) => {
+        if (error.status === 400) {
+          return of('Bad Request')
+        }
+        return of(`Error`)
+      })
+    )
   }
 
   read(id: string | null): Observable<any> {

@@ -6,33 +6,25 @@ interface Geometry {
 export function stringToGeometry(data: string, space: string) {
   let coordinates: number[][] = []
   let temp: number[] = []
-
-  data.split(space).forEach((coord: string) => {
-    temp.push(parseFloat(coord))
-    if (temp.length === 2) {
-      coordinates.push(temp)
-      temp = []
-    }
-  })
-
-  const geometry: Geometry = {
-    type: 'LineString',
-    coordinates: coordinates,
+  if (typeof data === 'string') {
+    data.split(space).forEach((coord: string) => {
+      temp.push(parseFloat(coord))
+      if (temp.length === 2) {
+        coordinates.push(temp)
+        temp = []
+      }
+    })
   }
 
-  return geometry
+  return createGeometryObject(coordinates)
 }
 
 export function coordinatesString(res: any) {
   const coordinates = res.geometry.coordinates.join()
-  const geometry: Geometry = {
-    type: 'LineString',
-    coordinates: coordinates,
-  }
-  return geometry
+  return createGeometryObject(coordinates)
 }
 
-export function createGeometryObject(coordinates: []) {
+export function createGeometryObject(coordinates: any) {
   const geometry: Geometry = {
     type: 'LineString',
     coordinates: coordinates,
