@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core'
-import { Farm } from './../models/Farm'
+import { Farm, UpdateFarm } from './../models/Farm'
 import { HttpClient } from '@angular/common/http'
 import { Observable, of } from 'rxjs'
 import { catchError } from 'rxjs/operators'
@@ -28,7 +28,9 @@ export class FarmService {
       })
     )
   }
-
+  update(id: string | null, farm: UpdateFarm): Observable<any> {
+    return this.http.patch(`${this.baseURL}/${id}`, farm)
+  }
   list(): Observable<any> {
     return this.http.get(`${this.baseURL}`)
   }

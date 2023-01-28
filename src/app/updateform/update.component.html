@@ -1,0 +1,78 @@
+<p routerLink="/farm">Voltar</p>
+<form [formGroup]="formFarm" (ngSubmit)="onSubmit()" *ngIf="loaded">
+  <div class="form-group">
+    <label for="owner">Id do dono</label>
+    <input
+      type="text"
+      class="form-control"
+      id="owner_id"
+      name="id"
+      formControlName="owner"
+      required
+      [(ngModel)]="data.owner.id"
+      [value]="data.owner.id"
+    />
+  </div>
+  <div class="form-group">
+    <label for="name">Nome da fazenda</label>
+    <input
+      type="text"
+      class="form-control"
+      id="name"
+      required
+      formControlName="name"
+      [(ngModel)]="data.name"
+      [value]="data.name"
+    />
+  </div>
+  <div class="form-group">
+    <label for="municipality">Municipio</label>
+    <input
+      type="text"
+      class="form-control"
+      id="municipality"
+      required
+      formControlName="municipality"
+      [(ngModel)]="data.municipality"
+      [value]="data.municipality"
+    />
+  </div>
+  <div class="form-group">
+    <label for="state">Estado</label>
+    <input
+      type="text"
+      class="form-control"
+      id="state"
+      required
+      formControlName="state"
+      [(ngModel)]="data.state"
+      [value]="data.state"
+    />
+  </div>
+  <div class="form-group">
+    <label for="area">Area</label>
+    <input
+      type="text"
+      class="form-control"
+      id="area"
+      name="area"
+      formControlName="area"
+      [(ngModel)]="data.area"
+      [value]="data.area"
+    />
+  </div>
+  <div class="form-group">
+    <label for="geometry">Geometria</label>
+    <input
+      type="text"
+      class="form-control"
+      id="geometry"
+      name="geometry"
+      formControlName="geometry"
+      [(ngModel)]="data.geometry"
+      [value]="data.geomery"
+    />
+  </div>
+
+  <input type="submit" value="Editar Fazenda" />
+</form>
