@@ -10,7 +10,9 @@ export class FarmService {
   private baseURL = `http://localhost:8000/api/v1/farms`
   constructor(private http: HttpClient) {}
 
-  create(farm: Farm) {}
+  create(farm: Farm): Observable<any> {
+    return this.http.post(`${this.baseURL}`, farm)
+  }
 
   read(id: number): Farm {
     return {} as any
