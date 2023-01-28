@@ -9,6 +9,7 @@ import { BasemapComponent } from './basemap/basemap.component'
 import { FarmComponent } from './farm/farm.component'
 import { DashboardComponent } from './dashboard/dashboard.component'
 import { CreateComponent } from './createform/create.component'
+import { DetailComponent } from './detail/detail.component'
 
 @NgModule({
   declarations: [
@@ -17,6 +18,7 @@ import { CreateComponent } from './createform/create.component'
     FarmComponent,
     DashboardComponent,
     CreateComponent,
+    DetailComponent,
   ],
   imports: [BrowserModule, AppRoutingModule, HttpClientModule, ReactiveFormsModule],
   providers: [],

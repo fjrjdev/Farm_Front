@@ -1,0 +1,4 @@
+<p routerLink="farm">Cadastrar</p>
+<div *ngFor="let item of data" [item]="item">
+  <p [routerLink]="['farm/detail/', item.id]">{{ item.name }}</p>
+</div>
