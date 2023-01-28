@@ -50,8 +50,6 @@ export class CreateComponent implements OnInit {
     return geometry
   }
   onSubmit() {
-    console.log(this.formFarm.value)
-
     let data = this.formFarm.value
     data.geometry = this.clearData(data.geometry)
     this.submitData(data)
