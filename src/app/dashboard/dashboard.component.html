@@ -1,5 +1,5 @@
 <p routerLink="farm">Cadastrar</p>
 <h2>Todas as fazendas cadastradas</h2>
-<div *ngFor="let item of data" [item]="item">
-  <p [routerLink]="['farm/detail/', item.id]">{{ item.name }}</p>
+<div *ngFor="let item of data">
+  <p [routerLink]="['farm/detail/', item.id]" [item]="item">{{ item.name }}</p>
 </div>
