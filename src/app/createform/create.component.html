@@ -1,0 +1,48 @@
+<p routerLink="/farm">Voltar</p>
+<form [formGroup]="formFarm" (ngSubmit)="onSubmit()">
+  <div class="form-group">
+    <label for="owner">Id do dono</label>
+    <input
+      type="text"
+      class="form-control"
+      id="owner_id"
+      name="id"
+      formControlName="owner"
+      required
+    />
+  </div>
+  <div class="form-group">
+    <label for="name">Nome da fazenda</label>
+    <input type="text" class="form-control" id="name" required formControlName="name" />
+  </div>
+  <div class="form-group">
+    <label for="municipality">Municipio</label>
+    <input
+      type="text"
+      class="form-control"
+      id="municipality"
+      required
+      formControlName="municipality"
+    />
+  </div>
+  <div class="form-group">
+    <label for="state">Estado</label>
+    <input type="text" class="form-control" id="state" required formControlName="state" />
+  </div>
+  <div class="form-group">
+    <label for="area">Area</label>
+    <input type="text" class="form-control" id="area" name="area" formControlName="area" />
+  </div>
+  <div class="form-group">
+    <label for="geometry">Geometria</label>
+    <input
+      type="text"
+      class="form-control"
+      id="geometry"
+      name="geometry"
+      formControlName="geometry"
+    />
+  </div>
+
+  <input type="submit" value="Cadastrar Fazenda" />
+</form>
