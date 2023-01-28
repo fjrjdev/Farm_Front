@@ -3,6 +3,8 @@ import { FarmService } from '../services/farm.service'
 import { Farm } from '../models/Farm'
 import { CreateFarm } from '../models/Farm'
 import { FormBuilder, FormGroup } from '@angular/forms'
+import { Router } from '@angular/router'
+import { stringToGeometry } from '../utils/serializer'
 
 interface Geometry {
   type: string
@@ -14,7 +16,11 @@ interface Geometry {
   styleUrls: ['./create.component.scss'],
 })
 export class CreateComponent implements OnInit {
-  constructor(private formBuilder: FormBuilder, private farmservice: FarmService) {}
+  constructor(
+    private formBuilder: FormBuilder,
+    private farmservice: FarmService,
+    private router: Router
+  ) {}
   formFarm!: FormGroup
   ngOnInit(): void {
     this.createForm(new CreateFarm())
@@ -29,33 +35,20 @@ export class CreateComponent implements OnInit {
       geometry: [farm.geometry],
     })
   }
-
-  clearData(data: string) {
-    let coordinates: number[][] = []
-    let temp: number[] = []
-
-    data.split(', ').forEach((coord: string) => {
-      temp.push(parseFloat(coord))
-      if (temp.length === 2) {
-        coordinates.push(temp)
-        temp = []
-      }
-    })
-
-    const geometry: Geometry = {
-      type: 'LineString',
-      coordinates: coordinates,
-    }
-
-    return geometry
-  }
   onSubmit() {
     let data = this.formFarm.value
-    data.geometry = this.clearData(data.geometry)
+    data.geometry = stringToGeometry(data.geometry, ', ')
+    console.log(data)
     this.submitData(data)
     this.formFarm.reset(new CreateFarm())
   }
   submitData(value: Farm) {
-    this.farmservice.create(value).subscribe((res) => console.log(res))
+    this.farmservice.create(value).subscribe((res) => {
+      if (res === 'Bad Request') {
+        console.log(res)
+      } else {
+        this.router.navigate([''])
+      }
+    })
   }
 }

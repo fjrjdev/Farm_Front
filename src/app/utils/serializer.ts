@@ -6,14 +6,15 @@ interface Geometry {
 export function stringToGeometry(data: string, space: string) {
   let coordinates: number[][] = []
   let temp: number[] = []
-
-  data.split(space).forEach((coord: string) => {
-    temp.push(parseFloat(coord))
-    if (temp.length === 2) {
-      coordinates.push(temp)
-      temp = []
-    }
-  })
+  if (typeof data === 'string') {
+    data.split(space).forEach((coord: string) => {
+      temp.push(parseFloat(coord))
+      if (temp.length === 2) {
+        coordinates.push(temp)
+        temp = []
+      }
+    })
+  }
 
   const geometry: Geometry = {
     type: 'LineString',
