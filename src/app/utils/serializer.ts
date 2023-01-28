@@ -16,24 +16,15 @@ export function stringToGeometry(data: string, space: string) {
     })
   }
 
-  const geometry: Geometry = {
-    type: 'LineString',
-    coordinates: coordinates,
-  }
-
-  return geometry
+  return createGeometryObject(coordinates)
 }
 
 export function coordinatesString(res: any) {
   const coordinates = res.geometry.coordinates.join()
-  const geometry: Geometry = {
-    type: 'LineString',
-    coordinates: coordinates,
-  }
-  return geometry
+  return createGeometryObject(coordinates)
 }
 
-export function createGeometryObject(coordinates: []) {
+export function createGeometryObject(coordinates: any) {
   const geometry: Geometry = {
     type: 'LineString',
     coordinates: coordinates,
