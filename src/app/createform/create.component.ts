@@ -42,7 +42,7 @@ export class CreateComponent implements OnInit {
       }
     })
 
-    let geometry: Geometry = {
+    const geometry: Geometry = {
       type: 'LineString',
       coordinates: coordinates,
     }

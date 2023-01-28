@@ -10,6 +10,7 @@ import { FarmComponent } from './farm/farm.component'
 import { DashboardComponent } from './dashboard/dashboard.component'
 import { CreateComponent } from './createform/create.component'
 import { DetailComponent } from './detail/detail.component'
+import { UpdateComponent } from './updateform/update.component'
 
 @NgModule({
   declarations: [
@@ -19,6 +20,7 @@ import { DetailComponent } from './detail/detail.component'
     DashboardComponent,
     CreateComponent,
     DetailComponent,
+    UpdateComponent,
   ],
   imports: [BrowserModule, AppRoutingModule, HttpClientModule, ReactiveFormsModule],
   providers: [],

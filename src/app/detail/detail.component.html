@@ -1,4 +1,4 @@
-<p routerLink="">Detail</p>
+<a routerLink="/">Voltar</a>
 <div *ngFor="let item of data" [item]="item">
   <p>Id: {{ item.id }}</p>
   <p>Nome:{{ item.name }}</p>
@@ -12,4 +12,8 @@
   <p>Name:{{ item.owner.name }}</p>
   <p>Document:{{ item.owner.document }}</p>
   <p>Tipo de Documento:{{ item.owner.document_type }}</p>
+  <div>
+    <button>Excluir</button>
+    <p [routerLink]="['/farm/detail/update/', item.id]">Editar</p>
+  </div>
 </div>
