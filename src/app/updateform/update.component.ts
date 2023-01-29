@@ -49,7 +49,7 @@ export class UpdateComponent implements OnInit {
         name: this.data.name,
         municipality: this.data.municipality,
         state: this.data.state,
-        geometry: this.data.geometry ? this.data.geometry.coordinates : null,
+        geometry: this.data.geometry ? this.data.geometry : null,
       })
     }
   }
