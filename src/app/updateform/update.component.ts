@@ -5,6 +5,8 @@ import { CreateFarm, UpdateFarmForm } from '../models/Farm'
 import { FormBuilder, FormGroup, Validators } from '@angular/forms'
 import { ActivatedRoute, Router } from '@angular/router'
 import { createGeometryObject, stringToGeometry, coordinatesString } from '../utils/serializer'
+import { catchError, switchMap } from 'rxjs/operators'
+import { EMPTY } from 'rxjs'
 
 @Component({
   selector: 'update-form',
@@ -23,57 +25,65 @@ export class UpdateComponent implements OnInit {
   loaded!: boolean
   id!: string | null
 
-  getFarmData() {
-    this.farmservice.read(this.id).subscribe((res) => {
-      if (res === `ID ${this.id} não encontrado`) {
-        this.router.navigate([''])
-      }
-      this.loaded = true
-      this.data = res
-    })
-  }
   createForm() {
+    this.formFarm = this.formBuilder.group({
+      owner: ['', Validators.required],
+      name: ['', Validators.required],
+      municipality: ['', Validators.required],
+      state: ['', Validators.required],
+      area: [''],
+      geometry: [null],
+    })
     if (this.data) {
-      this.formFarm = this.formBuilder.group({
-        owner: [this.data.owner.id, Validators.required],
-        name: [this.data.name, Validators.required],
-        municipality: [this.data.municipality, Validators.required],
-        state: [this.data.state, Validators.required],
-        area: [this.data.area],
-        geometry: [this.data.geometry ? this.data.geometry.coordinates : null],
+      this.formFarm.patchValue({
+        owner: this.data.owner.id,
+        name: this.data.name,
+        municipality: this.data.municipality,
+        state: this.data.state,
+        area: this.data.area,
+        geometry: this.data.geometry ? this.data.geometry.coordinates : null,
       })
     }
   }
-  patchValue() {
-    this.farmservice.read(this.id).subscribe((res) => {
-      if (res === `ID ${this.id} não encontrado`) {
-        this.router.navigate([''])
-      }
-      this.data = res
-      this.createForm()
-      this.loaded = true
-    })
-  }
+
   ngOnInit(): any {
     this.id = this.route.snapshot.paramMap.get('id')
-    this.patchValue()
+    this.farmservice
+      .read(this.id)
+      .pipe(
+        switchMap((res) => {
+          if (res === `ID ${this.id} não encontrado`) {
+            this.router.navigate([''])
+            return EMPTY
+          }
+          this.data = res
+          this.createForm()
+          return this.farmservice.read(this.id)
+        }),
+        catchError((err) => {
+          console.log(err)
+          return EMPTY
+        })
+      )
+      .subscribe((res) => {
+        this.loaded = true
+      })
   }
 
   onSubmit() {
     let data = this.formFarm.value
+    this.convertGeometryData(data)
+    this.submitData(data)
+  }
+  convertGeometryData(data) {
     if (typeof data.geometry === 'string') {
       data.geometry = stringToGeometry(data.geometry, ',')
-      this.loaded = false
-      this.submitData(data)
-      this.getFarmData()
     } else {
       data.geometry = createGeometryObject(data.geometry)
-      this.loaded = false
-      this.submitData(data)
-      this.getFarmData()
     }
   }
   submitData(value: Farm) {
+    this.loaded = false
     this.farmservice
       .update(this.id, value)
       .subscribe((res) => ((this.data = res), (this.loaded = true)))
