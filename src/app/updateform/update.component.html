@@ -41,25 +41,10 @@
       [value]="formFarm.controls['state'].value"
     />
   </div>
-  <div class="form-group">
-    <label for="area">Area</label>
-    <input
-      type="text"
-      class="form-control"
-      formControlName="area"
-      [value]="formFarm.controls['area'].value"
-    />
-  </div>
-  <div class="form-group">
-    <label for="geometry">Geometria</label>
-    <input
-      type="text"
-      class="form-control"
-      id="geometry"
-      name="geometry"
-      formControlName="geometry"
-      [value]="formFarm.controls['geometry'].value"
-    />
+  <div>
+    <button type="button" (click)="draw('Circle')" style="cursor: pointer">
+      Defina a nova Área da fazenda
+    </button>
   </div>
 
   <input type="submit" value="Editar Fazenda" />
