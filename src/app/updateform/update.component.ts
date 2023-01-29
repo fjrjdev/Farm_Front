@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core'
 import { FarmService } from '../services/farm.service'
 import { Farm } from '../models/Farm'
 import { CreateFarm, UpdateFarmForm } from '../models/Farm'
-import { FormBuilder, FormGroup } from '@angular/forms'
+import { FormBuilder, FormGroup, Validators } from '@angular/forms'
 import { ActivatedRoute, Router } from '@angular/router'
 import { createGeometryObject, stringToGeometry, coordinatesString } from '../utils/serializer'
 
@@ -32,20 +32,31 @@ export class UpdateComponent implements OnInit {
       this.data = res
     })
   }
+  createForm() {
+    if (this.data) {
+      this.formFarm = this.formBuilder.group({
+        owner: [this.data.owner.id, Validators.required],
+        name: [this.data.name, Validators.required],
+        municipality: [this.data.municipality, Validators.required],
+        state: [this.data.state, Validators.required],
+        area: [this.data.area],
+        geometry: [this.data.geometry ? this.data.geometry.coordinates : null],
+      })
+    }
+  }
+  patchValue() {
+    this.farmservice.read(this.id).subscribe((res) => {
+      if (res === `ID ${this.id} não encontrado`) {
+        this.router.navigate([''])
+      }
+      this.data = res
+      this.createForm()
+      this.loaded = true
+    })
+  }
   ngOnInit(): any {
     this.id = this.route.snapshot.paramMap.get('id')
-    this.getFarmData()
-    this.createForm(new UpdateFarmForm())
-  }
-  createForm(farm: CreateFarm) {
-    this.formFarm = this.formBuilder.group({
-      owner: [farm.owner],
-      name: [farm.name],
-      municipality: [farm.municipality],
-      state: [farm.state],
-      area: [farm.area],
-      geometry: [farm.geometry],
-    })
+    this.patchValue()
   }
 
   onSubmit() {
@@ -55,13 +66,11 @@ export class UpdateComponent implements OnInit {
       this.loaded = false
       this.submitData(data)
       this.getFarmData()
-      this.createForm(new UpdateFarmForm())
     } else {
       data.geometry = createGeometryObject(data.geometry)
       this.loaded = false
       this.submitData(data)
       this.getFarmData()
-      this.createForm(new UpdateFarmForm())
     }
   }
   submitData(value: Farm) {
