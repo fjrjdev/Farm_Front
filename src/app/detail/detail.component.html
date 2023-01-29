@@ -1,19 +1,21 @@
-<a routerLink="/">Voltar</a>
+<a routerLink=""><button type="button">Voltar</button></a>
 <div *ngFor="let item of data">
+  <h1>Edição</h1>
+  <h2>Dados da Fazenda</h2>
   <p>Id: {{ item.id }}</p>
-  <p>Nome:{{ item.name }}</p>
-  <p>Municipality:{{ item.municipality }}</p>
-  <p>State : {{ item.state }}</p>
+  <p>Nome: {{ item.name }}</p>
+  <p>Municipality: {{ item.municipality }}</p>
+  <p>State: {{ item.state }}</p>
   <p>Area: {{ item.area }}</p>
   <p>Creation Data: {{ item.creation_date }}</p>
-  <p>Is active:{{ item.is_active }}</p>
-  <p>Owner info</p>
-  <p>Id:{{ item.owner.id }}</p>
-  <p>Name:{{ item.owner.name }}</p>
-  <p>Document:{{ item.owner.document }}</p>
-  <p>Tipo de Documento:{{ item.owner.document_type }}</p>
-  <div>
-    <button (click)="delete()">Excluir</button>
-    <p [routerLink]="['/farm/detail/update/', item.id]">Editar</p>
+  <p>Is active: {{ item.is_active }}</p>
+  <h2>Dados do dono</h2>
+  <p>Id: {{ item.owner.id }}</p>
+  <p>Name: {{ item.owner.name }}</p>
+  <p>Document: {{ item.owner.document }}</p>
+  <p>Tipo de Documento: {{ item.owner.document_type }}</p>
+  <div [ngClass]="'actionButtons'">
+    <button [ngClass]="'exclude'" (click)="delete()">Excluir</button>
+    <button [routerLink]="['/farm/detail/update/', item.id]">Editar</button>
   </div>
 </div>

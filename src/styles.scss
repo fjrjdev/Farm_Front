@@ -1,8 +1,36 @@
+@import url('https://fonts.googleapis.com/css2?family=Raleway:wght@400;500;600&display=swap');
+* {
+  button {
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 4px;
+    padding: 12px 28px;
+    border: 2px solid;
+    transition: 0.3s;
+    background: #f7941e;
+    border-color: #f7941e;
+    color: #fff;
+    &:hover {
+      background: #fff;
+      border-color: #f7941e;
+      color: #f7941e;
+    }
+  }
+  a {
+    text-decoration: none;
+  }
+}
 body {
-    height: 100vh;
-    margin: 0;
+  height: 100vh;
+  margin: 0;
+  font-family: 'Raleway', sans-serif;
 }
 
 #mapContainer {
-    height: 100vh;
+  height: 100vh;
 }
