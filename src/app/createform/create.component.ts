@@ -38,7 +38,6 @@ export class CreateComponent implements OnInit {
   onSubmit() {
     let data = this.formFarm.value
     data.geometry = stringToGeometry(data.geometry, ', ')
-    console.log(data)
     this.submitData(data)
     this.formFarm.reset(new CreateFarm())
   }

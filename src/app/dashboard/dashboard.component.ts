@@ -8,18 +8,16 @@ import { FarmService } from '../services/farm.service'
 export class DashboardComponent implements OnInit {
   constructor(private farmservice: FarmService) {}
   data: any
-
-  submitData(value) {
-    let body = {
-      ...value,
-    }
-    this.farmservice.create(body).subscribe((res) => console.log(res))
+  loaded!: boolean
+  selectedItem: any
+  onClick(item: any) {
+    this.selectedItem = item
   }
-
   ngOnInit() {
+    this.loaded = false
     this.farmservice.list().subscribe((res) => {
-      console.log(res)
       return (this.data = res)
     })
+    this.loaded = true
   }
 }

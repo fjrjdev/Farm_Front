@@ -41,4 +41,7 @@ export class FarmService {
   list(): Observable<any> {
     return this.http.get(`${this.baseURL}`)
   }
+  delete(id: string | null): Observable<any> {
+    return this.http.delete(`${this.baseURL}/${id}`)
+  }
 }
