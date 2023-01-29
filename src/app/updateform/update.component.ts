@@ -85,17 +85,9 @@ export class UpdateComponent implements OnInit {
 
   onSubmit() {
     let data = this.formFarm.value
-    // this.convertGeometryData(data)
-
     this.submitData(data)
   }
-  // convertGeometryData(data) {
-  //   if (typeof data.geometry === 'string') {
-  //     data.geometry = stringToGeometry(data.geometry, ',')
-  //   } else {
-  //     data.geometry = createGeometryObject(data.geometry)
-  //   }
-  // }
+
   submitData(value: Farm) {
     this.loaded = false
     this.farmservice

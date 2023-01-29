@@ -8,6 +8,9 @@ form > button {
   width: 100%;
 }
 .updateButton {
+  background: #0b0d0d;
+  color: #fff;
+  border: 2px solid #0b0d0d;
   &:hover {
     background: #212529;
     color: #fff;
