@@ -37,7 +37,6 @@ export class DetailComponent implements OnInit {
       }
       this.data = [...res]
       this.data[0].creation_date = this.formateDateLocale(res.creation_date)
-      console.log(this.data)
     })
   }
 }

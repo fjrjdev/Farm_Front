@@ -8,7 +8,7 @@ import { AppComponent } from './app.component'
 import { BasemapComponent } from './basemap/basemap.component'
 import { FarmComponent } from './farm/farm.component'
 import { DashboardComponent } from './dashboard/dashboard.component'
-import { CreateComponent } from './createform/create.component'
+
 import { DetailComponent } from './detail/detail.component'
 import { UpdateComponent } from './updateform/update.component'
 
@@ -18,7 +18,6 @@ import { UpdateComponent } from './updateform/update.component'
     BasemapComponent,
     FarmComponent,
     DashboardComponent,
-    CreateComponent,
     DetailComponent,
     UpdateComponent,
   ],
