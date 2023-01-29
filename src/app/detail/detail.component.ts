@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core'
 import { FarmService } from '../services/farm.service'
 import { ActivatedRoute, Router } from '@angular/router'
+import { EMPTY } from 'rxjs'
 
 @Component({
   selector: 'farm-detail',
@@ -16,8 +17,17 @@ export class DetailComponent implements OnInit {
   data: any
   id!: string | null
   delete() {
-    this.farmservice.delete(this.id).subscribe((res) => console.log(res))
+    this.farmservice.delete(this.id).subscribe((res) => EMPTY)
     this.router.navigate([''])
+  }
+  formateDateLocale(res) {
+    const date = new Date(res)
+    const formattedDate = date.toLocaleDateString('pt-BR', {
+      day: '2-digit',
+      month: '2-digit',
+      year: '2-digit',
+    })
+    return formattedDate
   }
   ngOnInit() {
     this.id = this.route.snapshot.paramMap.get('id')
@@ -25,7 +35,9 @@ export class DetailComponent implements OnInit {
       if (res === `ID ${this.id} não encontrado`) {
         this.router.navigate([''])
       }
-      return (this.data = [...res])
+      this.data = [...res]
+      this.data[0].creation_date = this.formateDateLocale(res.creation_date)
+      console.log(this.data)
     })
   }
 }
