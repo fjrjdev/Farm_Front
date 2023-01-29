@@ -1,18 +1,20 @@
 <a routerLink=""><button type="button">Voltar</button></a>
 <div *ngFor="let item of data">
-  <h1>Edição</h1>
-  <h2>Dados da Fazenda</h2>
-  <p>Id: {{ item.id }}</p>
+  <h1>Dados da Fazenda</h1>
+  <h2>{{ item.name }}</h2>
+  <p>ID: {{ item.id }}</p>
   <p>Nome: {{ item.name }}</p>
-  <p>Municipality: {{ item.municipality }}</p>
-  <p>State: {{ item.state }}</p>
-  <p>Area: {{ item.area }}</p>
-  <p>Creation Data: {{ item.creation_date }}</p>
-  <p>Is active: {{ item.is_active }}</p>
-  <h2>Dados do dono</h2>
-  <p>Id: {{ item.owner.id }}</p>
-  <p>Name: {{ item.owner.name }}</p>
-  <p>Document: {{ item.owner.document }}</p>
+  <p>Município: {{ item.municipality }}</p>
+  <p>Estado: {{ item.state }}</p>
+  <p>Área: {{ item.area }}</p>
+  <p>Ativa: {{ item.is_active }}</p>
+  <h2>Datas</h2>
+  <p>Data de Criação: {{ item.creation_date }}</p>
+  <p>Última Modificação: {{ item.last_modification_date }}</p>
+  <h2>Dados do Proprietário</h2>
+  <p>ID: {{ item.owner.id }}</p>
+  <p>Nome: {{ item.owner.name }}</p>
+  <p>Documento: {{ item.owner.document }}</p>
   <p>Tipo de Documento: {{ item.owner.document_type }}</p>
   <div [ngClass]="'actionButtons'">
     <button [ngClass]="'exclude'" (click)="delete()">Excluir</button>
