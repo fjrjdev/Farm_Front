@@ -1,0 +1,7 @@
+<a routerLink="farm"><button>Cadastrar</button></a>
+<h1>Lista de Fazendas Cadastradas</h1>
+<div *ngFor="let item of data">
+  <p [routerLink]="['farm/detail/', item.id]" (click)="onClick(item)" *ngIf="loaded">
+    {{ item.name }}
+  </p>
+</div>

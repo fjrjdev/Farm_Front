@@ -4,11 +4,10 @@ form {
   flex-direction: column;
   margin-top: 1rem;
 }
-form > div > button {
+form > button {
   width: 100%;
 }
-
-.registerButton {
+.updateButton {
   background: #0b0d0d;
   color: #fff;
   border: 2px solid #0b0d0d;

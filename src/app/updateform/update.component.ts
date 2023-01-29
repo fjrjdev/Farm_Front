@@ -5,28 +5,36 @@ import { MapService } from '../map.service'
 import { BasemapComponent } from '../basemap/basemap.component'
 import { GeoJsonFeatureAddon } from '@common/feature'
 import { pointClickStyle, GeoJsonFeature } from '@common/geolib'
+
 import { FarmService } from '../services/farm.service'
 import { Farm } from '../models/Farm'
+
 import { FormBuilder, FormGroup, Validators } from '@angular/forms'
-import { Router } from '@angular/router'
+import { ActivatedRoute, Router } from '@angular/router'
+
+import { catchError, switchMap } from 'rxjs/operators'
 import { EMPTY } from 'rxjs'
 
 @Component({
-  selector: 'app-farm',
-  templateUrl: './farm.component.html',
-  styleUrls: ['./farm.component.scss'],
+  selector: 'update-form',
+  templateUrl: './update.component.html',
+  styleUrls: ['./update.component.scss'],
 })
-export class FarmComponent implements OnInit {
+export class UpdateComponent implements OnInit {
   private _map!: BasemapComponent
   private _geometries: GeoJsonFeature[] = []
-
   constructor(
     private _mapService: MapService,
     private formBuilder: FormBuilder,
     private farmservice: FarmService,
+    private route: ActivatedRoute,
     private router: Router
   ) {}
   formFarm!: FormGroup
+  data: any
+  loaded!: boolean
+  id!: string | null
+
   createForm() {
     this.formFarm = this.formBuilder.group({
       owner: ['', Validators.required],
@@ -35,29 +43,56 @@ export class FarmComponent implements OnInit {
       state: ['', Validators.required],
       geometry: [null],
     })
+    if (this.data) {
+      this.formFarm.patchValue({
+        owner: this.data.owner.id,
+        name: this.data.name,
+        municipality: this.data.municipality,
+        state: this.data.state,
+        geometry: this.data.geometry ? this.data.geometry.coordinates : null,
+      })
+    }
   }
   setGeometries(value: any) {
     this.formFarm.patchValue({
       geometry: value,
     })
   }
-  ngOnInit() {
+
+  ngOnInit(): any {
     this._map = this._mapService.map
-    this.createForm()
+    this.id = this.route.snapshot.paramMap.get('id')
+    this.farmservice
+      .read(this.id)
+      .pipe(
+        switchMap((res) => {
+          if (res === `ID ${this.id} não encontrado`) {
+            this.router.navigate([''])
+            return EMPTY
+          }
+          this.data = res
+          this.createForm()
+          return this.farmservice.read(this.id)
+        }),
+        catchError((err) => {
+          return EMPTY
+        })
+      )
+      .subscribe((res) => {
+        this.loaded = true
+      })
   }
+
   onSubmit() {
     let data = this.formFarm.value
     this.submitData(data)
   }
+
   submitData(value: Farm) {
-    this.farmservice.create(value).subscribe((res) => {
-      if (res === 'Bad Request') {
-        return EMPTY
-      } else {
-        this.formFarm.reset()
-        this.router.navigate([''])
-      }
-    })
+    this.loaded = false
+    this.farmservice
+      .update(this.id, value)
+      .subscribe((res) => ((this.data = res), (this.loaded = true)))
   }
   draw(type: 'Circle') {
     if (!this._map) return

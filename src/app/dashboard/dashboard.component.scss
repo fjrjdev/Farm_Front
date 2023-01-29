@@ -1,0 +1,15 @@
+a {
+  text-decoration: none;
+}
+h2 {
+  margin-top: 20px;
+}
+
+div {
+  p {
+    cursor: pointer;
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}

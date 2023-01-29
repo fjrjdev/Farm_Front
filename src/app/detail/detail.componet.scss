@@ -1,0 +1,18 @@
+.actionButtons {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 0px;
+  gap: 9px;
+
+  .exclude {
+    background: #dee2e6;
+    color: #495057;
+    border: 1.5px solid #dee2e6;
+    &:hover {
+      background: #ced4da;
+      border: 1.5px solid #ced4da;
+      color: #495057;
+    }
+  }
+}
