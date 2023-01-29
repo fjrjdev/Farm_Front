@@ -34,9 +34,12 @@ export class DetailComponent implements OnInit {
     this.farmservice.read(this.id).subscribe((res) => {
       if (res === `ID ${this.id} não encontrado`) {
         this.router.navigate([''])
+        return EMPTY
+      } else {
+        this.data = [...res]
+        this.data[0].creation_date = this.formateDateLocale(res.creation_date)
+        this.data[0].last_modification_date = this.formateDateLocale(res.last_modification_date)
       }
-      this.data = [...res]
-      this.data[0].creation_date = this.formateDateLocale(res.creation_date)
     })
   }
 }

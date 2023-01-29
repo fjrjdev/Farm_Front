@@ -1,7 +1,8 @@
 <a [routerLink]="['/farm/detail/', id]"><button type="button">Voltar</button></a>
+<h1>Editar Dados da Fazenda</h1>
 <form [formGroup]="formFarm" (ngSubmit)="onSubmit()" *ngIf="loaded">
   <div class="form-group">
-    <label for="owner">Id do dono</label>
+    <label for="owner">ID do Proprietário</label>
     <input
       type="text"
       class="form-control"
@@ -41,11 +42,10 @@
       [value]="formFarm.controls['state'].value"
     />
   </div>
-  <div>
-    <button type="button" (click)="draw('Circle')" style="cursor: pointer">
-      Defina a nova Área da fazenda
-    </button>
-  </div>
 
-  <input type="submit" value="Editar Fazenda" />
+  <button type="button" (click)="draw('Circle')" style="cursor: pointer">
+    Defina nova Área da fazenda
+  </button>
+
+  <button [ngClass]="'updateButton'" type="submit">Salvar alterações</button>
 </form>
