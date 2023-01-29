@@ -1,27 +1,27 @@
 <a routerLink=""><button type="button">Voltar</button></a>
-<p routerLink="/farm/create">Novo cadastro</p>
+
 <form [formGroup]="formFarm" (ngSubmit)="onSubmit()">
   <div class="form-group">
-    <label for="owner">Id do dono</label>
+    <label for="owner">Informe ID do Proprietário</label>
     <input type="text" class="form-control" formControlName="owner" required />
   </div>
   <div class="form-group">
-    <label for="name">Nome da fazenda</label>
+    <label for="name">Insira Nome da Fazenda</label>
     <input type="text" class="form-control" required formControlName="name" />
   </div>
   <div class="form-group">
-    <label for="municipality">Municipio</label>
+    <label for="municipality">Insira o Municipio</label>
     <input type="text" class="form-control" required formControlName="municipality" />
   </div>
   <div class="form-group">
-    <label for="state">Estado</label>
+    <label for="state">Insira o Estado</label>
     <input type="text" class="form-control" required formControlName="state" />
   </div>
   <div>
     <button type="button" (click)="draw('Circle')" style="cursor: pointer">
-      Defina a Área da fazenda
+      Definir Área da Fazenda
     </button>
   </div>
 
-  <button type="submit">Cadastrar Fazenda</button>
+  <button [ngClass]="'registerButton'" type="submit">Cadastrar Fazenda</button>
 </form>
