@@ -5,6 +5,7 @@ import { ActivatedRoute, Router } from '@angular/router'
 @Component({
   selector: 'farm-detail',
   templateUrl: './detail.component.html',
+  styleUrls: ['./detail.componet.scss'],
 })
 export class DetailComponent implements OnInit {
   constructor(

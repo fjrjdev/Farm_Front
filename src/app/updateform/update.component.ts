@@ -61,7 +61,6 @@ export class UpdateComponent implements OnInit {
           return this.farmservice.read(this.id)
         }),
         catchError((err) => {
-          console.log(err)
           return EMPTY
         })
       )

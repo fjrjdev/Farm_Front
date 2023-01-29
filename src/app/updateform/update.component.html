@@ -1,4 +1,4 @@
-<p routerLink="/farm">Voltar</p>
+<a [routerLink]="['/farm/detail/', id]"><button type="button">Voltar</button></a>
 <form [formGroup]="formFarm" (ngSubmit)="onSubmit()" *ngIf="loaded">
   <div class="form-group">
     <label for="owner">Id do dono</label>
